@@ -13,31 +13,68 @@ public class MarsRover {
         this.world = world;
     }
 
-    void rotateLeft(){}
+    void rotateLeft(){
+        direction = direction.rotateLeft();
+    }
 
-    void rotateRight(){}
+    void rotateRight(){
+        direction = direction.rotateRight();
+    }
 
-    void move(){}
+    void move(){
+        int newX = x;
+        int newY = y;
+        switch (direction) {
+            case NORTH:
+                newY++;
+                break;
+            case EAST:
+                newX++;
+                break;
+            case SOUTH:
+                newY--;
+                break;
+            case WEST:
+                newX--;
+                break;
+        }
 
-    void move(int distance){}
+        if(checkPosition(newX, newY)) {
+            x = newX;
+            y = newY;
+        }
+    }
 
-    void execute(String commands){}
+    void move(int distance){
+        for (int i = 0; i < distance; i++) {
+            move();
+        }
+    }
+
+    void execute(String commands){
+        for (char command :
+                commands.toCharArray()) {
+            switch (command) {
+                case 'M':
+                    move();
+                    break;
+                case 'R':
+                    rotateRight();
+                    break;
+                case 'L':
+                    rotateLeft();
+                    break;
+            }
+        }
+    }
+
+    boolean checkPosition(int x, int y){
+        return x > 0 && y > 0 && x < getWorld().width && getWorld().height < y;
+    }
 
     @Override
     public String toString() {
-        return "MarsRover{" +
-                "x=" + x +
-                ", y=" + y +
-                ", direction=" + direction +
-                '}';
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+        return x + " " + y + " " + direction.name().charAt(0);
     }
 
     public Direction getDirection() {
@@ -46,13 +83,5 @@ public class MarsRover {
 
     public World getWorld() {
         return world;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 }

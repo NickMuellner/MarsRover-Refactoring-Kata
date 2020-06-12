@@ -4,11 +4,12 @@ public enum Direction {
     NORTH, EAST, SOUTH, WEST;
 
     public Direction rotateLeft(){
-        return null;
+        int index = this.ordinal() == 0 ? 3 : this.ordinal() - 1;
+        return Direction.values()[index];
     }
 
     public Direction rotateRight(){
-        return null;
+        int index = this.ordinal() == 3 ?  0 : this.ordinal() + 1;
+        return Direction.values()[index];
     }
-
 }
