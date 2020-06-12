@@ -1,42 +1,58 @@
-package mars.rover;
+package main.java.mars.rover;
 
 public class MarsRover {
+    int x;
+    int y;
+    Direction direction;
+    World world;
 
-    public static String move(int x, int y, char direction, String instructions) {
-        if (!instructions.isEmpty()) {
-            char instruction = instructions.charAt(0);
-            if (instruction == 'L') {
-                if (direction == 'N') {
-                    return move(x, y, 'W', instructions.substring(1, instructions.length()));
-                } else if (direction == 'W') {
-                    return move(x, y, 'S', instructions.substring(1, instructions.length()));
-                } else if (direction == 'S') {
-                    return move(x, y, 'E', instructions.substring(1, instructions.length()));
-                } else if (direction == 'E') {
-                    return move(x, y, 'N', instructions.substring(1, instructions.length()));
-                }
-            } else if (instruction == 'R') {
-                if (direction == 'N') {
-                    return move(x, y, 'E', instructions.substring(1, instructions.length()));
-                } else if (direction == 'W') {
-                    return move(x, y, 'N', instructions.substring(1, instructions.length()));
-                } else if (direction == 'S') {
-                    return move(x, y, 'W', instructions.substring(1, instructions.length()));
-                } else if (direction == 'E') {
-                    return move(x, y, 'S', instructions.substring(1, instructions.length()));
-                }
-            } else if (instruction == 'M') {
-                if (direction == 'N') {
-                    return move(x, y + 1, 'N', instructions.substring(1, instructions.length()));
-                } else if (direction == 'S') {
-                    return move(x, y - 1, 'S', instructions.substring(1, instructions.length()));
-                } else if (direction == 'W') {
-                    return move(x - 1, y, 'W', instructions.substring(1, instructions.length()));
-                } else if (direction == 'E') {
-                    return move(x + 1, y, 'E', instructions.substring(1, instructions.length()));
-                }
-            }
-        }
-        return x + " " + y + " " + direction;
+    public MarsRover(int x, int y, Direction direction, World world) {
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
+        this.world = world;
+    }
+
+    void rotateLeft(){}
+
+    void rotateRight(){}
+
+    void move(){}
+
+    void move(int distance){}
+
+    void execute(String commands){}
+
+    @Override
+    public String toString() {
+        return "MarsRover{" +
+                "x=" + x +
+                ", y=" + y +
+                ", direction=" + direction +
+                '}';
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
