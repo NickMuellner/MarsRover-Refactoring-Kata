@@ -1,31 +1,31 @@
 package mars.rover;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static mars.rover.Direction.*;
-
-import mars.rover.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MarsRoverTest {
 
     private World world;
-    private Rover rover;
+    private MarsRover rover;
 
     @BeforeEach
     public void setUp(){
         world = new World(10, 10);
-        rover = new Rover(1, 1, North, world);
+        rover = new MarsRover(1, 1, NORTH, world);
     }
 
-    @test
+    @Test
     public void rover_toString() {
         assertEquals("1 1 N", rover.toString());
     }
 
     @Test
     public void rover_null_command() {
-        executeAndCheck(null, "1 1 N");
+        assertThrows(IllegalArgumentException.class, () -> rover.execute(null));
     }
     @Test
     public void rover_illegal_command() {
@@ -37,14 +37,14 @@ public class MarsRoverTest {
         executeAndCheck("", "1 1 N");
     }
 
-    @test(expected = IllegalArgumentException.class)
+    @Test
     public void rover_x_out_of_world() {
-        MarsRover rover = new MarsRover(11, 1, North, world);
+        assertThrows(IllegalArgumentException.class, () -> new MarsRover(11, 1, NORTH, world));
     }
 
-    @test(expected = IllegalArgumentException.class)
+    @Test
     public void rover_y_out_of_world() {
-        MarsRover rover = new MarsRover(1, 11, North, world);
+        assertThrows(IllegalArgumentException.class, () -> new MarsRover(1, 11, NORTH, world));
     }
 
     public void rover_move_x_out_of_world() {
@@ -89,7 +89,7 @@ public class MarsRoverTest {
 
     @Test
     public void rover_move_y() {
-        executeAndCheck("RM", "2 1 N");
+        executeAndCheck("RM", "2 1 E");
     }
 
     @Test
@@ -98,7 +98,7 @@ public class MarsRoverTest {
     }
 
     private void executeAndCheck(String commands, String result){
-        Rover.execute(commands);
+        rover.execute(commands);
         assertEquals(result, rover.toString());
     }
 }

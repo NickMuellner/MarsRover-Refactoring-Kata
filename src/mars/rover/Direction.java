@@ -1,4 +1,4 @@
-package main.java.mars.rover;
+package mars.rover;
 
 public enum Direction {
     NORTH, EAST, SOUTH, WEST;

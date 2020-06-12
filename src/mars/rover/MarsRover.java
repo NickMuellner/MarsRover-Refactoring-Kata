@@ -1,27 +1,31 @@
-package main.java.mars.rover;
+package mars.rover;
 
 public class MarsRover {
-    int x;
-    int y;
-    Direction direction;
-    World world;
+    private int x;
+    private int y;
+    private Direction direction;
+    private World world;
 
     public MarsRover(int x, int y, Direction direction, World world) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.world = world;
+
+        if(!checkPosition(x, y)) {
+            throw new IllegalArgumentException("Position out of World");
+        }
     }
 
-    void rotateLeft(){
+    public void rotateLeft(){
         direction = direction.rotateLeft();
     }
 
-    void rotateRight(){
+    public void rotateRight(){
         direction = direction.rotateRight();
     }
 
-    void move(){
+    public void move(){
         int newX = x;
         int newY = y;
         switch (direction) {
@@ -45,13 +49,10 @@ public class MarsRover {
         }
     }
 
-    void move(int distance){
-        for (int i = 0; i < distance; i++) {
-            move();
+    public void execute(String commands){
+        if(commands == null) {
+            throw new IllegalArgumentException("Position out of World");
         }
-    }
-
-    void execute(String commands){
         for (char command :
                 commands.toCharArray()) {
             switch (command) {
@@ -68,8 +69,8 @@ public class MarsRover {
         }
     }
 
-    boolean checkPosition(int x, int y){
-        return x > 0 && y > 0 && x < getWorld().width && getWorld().height < y;
+    private boolean checkPosition(int x, int y){
+        return x > 0 && y > 0 && x < getWorld().getWidth() && y < getWorld().getHeight();
     }
 
     @Override
